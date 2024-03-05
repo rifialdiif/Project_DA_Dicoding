@@ -1,5 +1,6 @@
 # Project_DA_Dicoding Dashboard 🚴‍♂️
-Welcome to the GitHub repository of the Project_DA_Dicoding Dashboard! This project is designed to provide insights into bike sharing data, enabling users to explore patterns and trends in bike usage across different times and conditions. Dive into our interactive dashboard to uncover valuable insights with ease.
+Welcome to the GitHub repository of the Project_DA_Dicoding Dashboard! This project is designed to provide insights into bike sharing data, enabling users to explore patterns and trends in bike usage across different times and conditions. Dive into our interactive dashboard to uncover valuable insights with ease. To access the dashboard, please visit the following link:
+[notebook](https://capital-bikesharing-rifialdiif.streamlit.app/)
 
 ## Setup Environment 🛠
 Before running the dashboard, ensure you have Python installed on your machine and follow these steps to set up your environment:
