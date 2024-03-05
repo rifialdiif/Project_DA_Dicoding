@@ -327,7 +327,7 @@ fig1.add_trace(go.Scatter(x=weekday_users_df['weekday'], y=weekday_users_df['reg
                          mode='lines+markers', name='Trend Registered Users',
                          line=dict(color='#E377C2', width=2)))  # Pink
 
-fig1.update_layout(title_text='Total Pengguna berdasarkan Hari Kerja dengan Garis Tren (Senin-Jumat)',
+fig1.update_layout(title_text='Total Pengguna berdasarkan Hari Kerja dengan Garis Tren',
                   xaxis_title='Weekday',
                   yaxis_title='Total Users',
                   plot_bgcolor='rgba(0,0,0,0)',
