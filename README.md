@@ -39,8 +39,8 @@ streamlit run dashboard.py
 ```
 
 # Acknowledgements 🙏
-[Dicoding](https://https://www.dicoding.com/) for providing the opportunity to work on this project.
-[Streamlit](https://https://streamlit.io/) for making data app development straightforward and fun.
+* [Dicoding](https://https://www.dicoding.com/) for providing the opportunity to work on this project.
+* [Streamlit](https://https://streamlit.io/) for making data app development straightforward and fun.
 
 
 
