@@ -1,1 +1,2 @@
-for link dashboard
+To access the dashboard, please visit the following link:
+[Dashboard](https://capital-bikesharing-rifialdiif.streamlit.app/)
