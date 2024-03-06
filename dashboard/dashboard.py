@@ -63,16 +63,28 @@ with col2:
 def create_users_summary_df(df):
     # Menghitung total untuk masing-masing tipe pengguna
     users_summary = {
-        "casual_users": df["casual"].sum(),
-        "registered_users": df["registered"].sum(),
+        "Casual": df["casual"].sum(),
+        "Registered": df["registered"].sum(),
     }
     # Menambahkan total keseluruhan pengguna
-    users_summary["total_users"] = users_summary["casual_users"] + users_summary["registered_users"]
+    users_summary["Total Users"] = users_summary["Casual"] + users_summary["Registered"]
     
     # Mengubah dictionary ke DataFrame untuk visualisasi
     users_summary_df = pd.DataFrame(list(users_summary.items()), columns=["User_Type", "Count"])
     
     return users_summary_df
+
+def create_users_summary_percen_df(df):
+    # Menghitung total untuk masing-masing tipe pengguna
+    users_summary = {
+        "Casual": df["casual"].sum(),
+        "Registered": df["registered"].sum(),
+    }
+    
+    # Mengubah dictionary ke DataFrame untuk visualisasi
+    users_summary_percen_df = pd.DataFrame(list(users_summary.items()), columns=["User_Type", "Count"])
+    
+    return users_summary_percen_df
 
 def create_monthly_users_df(df):
     monthly_users_df = df.resample(rule='M', on='dateday').agg({
@@ -220,6 +232,7 @@ st.markdown("---")
 
 # Assign Main
 users_summary_df = create_users_summary_df(filtered_df)
+users_summary_percen_df = create_users_summary_percen_df(filtered_df)
 monthly_users_df = create_monthly_users_df(filtered_df)
 seasonly_users_df = create_seasonly_users_df(filtered_df)
 weather_users_df = create_weather_users_df(filtered_df)
@@ -228,35 +241,56 @@ holiday_users_df = create_holiday_users_df(filtered_df)
 
 # CHART
 
-# CHART 1
-fig = go.Figure()
+col1, col2 = st.columns(2)
 
-# Menambahkan bar untuk setiap jenis pengguna
-for index, row in users_summary_df.iterrows():
-    if row['User_Type'] == 'casual_users':
-        color = 'skyblue'
-    elif row['User_Type'] == 'registered_users':
-        color = 'salmon'
-    else:
-        # Warna untuk tipe pengguna lainnya atau total rides
-        color = 'lightgreen'
-    
-    fig.add_trace(go.Bar(x=[row['User_Type']], y=[row['Count']],
-                         name=row['User_Type'],
-                         text=[row['Count']],
-                         textposition='auto',
-                         marker_color=color))
+# Grafik pertama di kolom pertama
+with col1:
+    fig1 = go.Figure()
 
-# Menyesuaikan layout
-fig.update_layout(
-    title_text='Total Casual vs Registered Users',
-    xaxis=dict(title='Type of User'),
-    yaxis=dict(title='Total Users'),
-    barmode='group',
-    legend_title_text='Type of User'
-)
+    # Menambahkan bar untuk setiap jenis pengguna
+    for index, row in users_summary_df.iterrows():
+        if row['User_Type'] == 'Casual':
+            color = 'skyblue'
+        elif row['User_Type'] == 'Registered':
+            color = 'salmon'
+        else:
+            # Warna untuk tipe pengguna lainnya atau total rides
+            color = 'lightgreen'
 
-st.plotly_chart(fig, use_container_width=True)
+        fig1.add_trace(go.Bar(x=[row['User_Type']], y=[row['Count']],
+                             name=row['User_Type'],
+                             text=[row['Count']],
+                             textposition='auto',
+                             marker_color=color))
+
+    # Menyesuaikan layout
+    fig1.update_layout(
+        title_text='Total Casual vs Registered Users',
+        xaxis=dict(title='Type of User'),
+        yaxis=dict(title='Total Users'),
+        barmode='group',
+        legend_title_text='Type of User'
+    )
+
+    st.plotly_chart(fig1, use_container_width=True)
+
+# Grafik kedua di kolom kedua
+with col2:
+    fig2 = go.Figure()
+
+    # Menambahkan pie chart untuk proporsi pengguna
+    fig2.add_trace(go.Pie(labels=users_summary_percen_df['User_Type'], 
+                         values=users_summary_percen_df['Count'],
+                         textinfo='label+percent',
+                         insidetextorientation='radial',
+                         marker_colors=['#1f77b4', '#2ca02c']))
+
+    # Menyesuaikan layout
+    fig2.update_layout(
+        title_text='Persentase Casual vs Registered Users'
+    )
+
+    st.plotly_chart(fig2, use_container_width=True)
 
 # CHART 2
 fig = px.line(monthly_users_df,
@@ -327,7 +361,7 @@ fig1.add_trace(go.Scatter(x=weekday_users_df['weekday'], y=weekday_users_df['reg
                          mode='lines+markers', name='Trend Registered Users',
                          line=dict(color='#E377C2', width=2)))  # Pink
 
-fig1.update_layout(title_text='Total Pengguna berdasarkan Hari Kerja dengan Garis Tren',
+fig1.update_layout(title_text='Total Pengguna berdasarkan Hari Kerja dengan Garis Tren (Senin-Jumat)',
                   xaxis_title='Weekday',
                   yaxis_title='Total Users',
                   plot_bgcolor='rgba(0,0,0,0)',
