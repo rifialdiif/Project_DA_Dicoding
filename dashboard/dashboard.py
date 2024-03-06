@@ -213,7 +213,7 @@ filtered_df = main_df[
     (main_df["dateday"] <= pd.to_datetime(end_date))
 ]
 
-st.title(":bike: Capital Bikeshare : Bike-Sharing Dashboard")
+st.title(":bike: Bike-Sharing Dashboard")
 st.markdown("---")
 
 col1, col2, col3 = st.columns(3)
