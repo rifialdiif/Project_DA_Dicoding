@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 sns.set(style="white")
 
 st.set_page_config(
-    page_title="Capital Bikeshare: Bike-sharing Dashboard",
+    page_title="Bike-sharing Dashboard",
     page_icon=":bike:",
     layout="wide",
 ) 
